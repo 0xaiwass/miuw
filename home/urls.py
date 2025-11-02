@@ -8,4 +8,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('p/<str:category>/<slug:slug>/', ProductDetailView.as_view(), name="products_detail"),
     path('b/<str:slug>/', BlogDetailView.as_view(), name='detail'),
+    path('aboutus/', AboutUsView.as_view(), name='aboutus'),
 ]

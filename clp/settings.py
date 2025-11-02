@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-w_0-odpl+sd4=vc$xyxah#pnb=df+(rb@a+4#$c4p+x&#a-tal
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["clpguitar.com","www.clpguitar.com"]
+ALLOWED_HOSTS = ["clpguitar.com","www.clpguitar.com",'localhost','127.0.0.1']
 
 
 INSTALLED_APPS = [
@@ -113,7 +113,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ########################CUSTOM SETTINGS#########################
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # adjust this if your static folder is elsewhere
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 AUTH_USER_MODEL = 'accounts.User'
 

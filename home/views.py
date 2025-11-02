@@ -3,7 +3,7 @@ from django.views import View
 from products.models import *
 from itertools import chain
 from blogs.models import *
-#-------------------------------------
+#-----------------------------------------------------------------------
 class HomeView(View):
     def get(self, request):
         clp = CLP.objects.filter(is_active=True, is_offer=True )
@@ -51,3 +51,7 @@ class HomeView(View):
             "blog":b,
         }
         return render(request, 'home/home.html', context)
+#-----------------------------------------------------------------------
+class AboutUsView(View):
+    def get(self, request):
+        return render(request, 'home/aboutus.html')
