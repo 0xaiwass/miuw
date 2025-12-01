@@ -32,8 +32,11 @@ class LoginView(View):
             phone = form.cleaned_data['phone']
             password = form.cleaned_data['password']
             try:
-                User.objects.get(phone=phone)
-            except User.DoesNotExist or User.objects.is_active == False:
+                user = User.objects.get(phone=phone)
+                if not user.is_active:
+                    messages.error(request, 'اطلاعات داده شده نادرست است. لطفا دویاره امتحان کنید', extra_tags='error')
+                    return redirect('accounts:login')
+            except User.DoesNotExist:
                 messages.error(request, 'اطلاعات داده شده نادرست است. لطفا دویاره امتحان کنید', extra_tags='error')
                 return redirect('accounts:login')
             user = authenticate(request, phone=phone, password=password)
@@ -41,6 +44,8 @@ class LoginView(View):
                 user.last_login = timezone.now()
                 user.save(update_fields=['last_login'])
                 login(request, user)
+                request.session.set_expiry(3600)
+                messages.success(request, 'با موفقیت وارد شدید!', extra_tags='success')
                 return redirect(self.next)
             else:
                 messages.error(request, 'اطلاعات داده شده نادرست است. لطفا دوباره امتحان کنید', extra_tags='error')

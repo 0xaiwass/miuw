@@ -8,21 +8,11 @@
     <link rel="icon" type="image/png" href="{% static 'images/favicon2.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سفارشات</title>
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'styles/app.css' %}">
     <!-- link -->
     <link rel="stylesheet" href="{% static 'swiper/swiper.css' %}">
-    <!-- ==========================  DARK MODE SCRIPT ============================= -->
-    <script type="text/javascript">
-        if (
-            localStorage.theme === "dark" ||
-            (!("theme" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    </script>
+    {% endcompress %}
 </head>
 
 <body>
@@ -383,8 +373,11 @@
 <!-- Overlay -->
 <div class="overlay"></div>
 <div class="search-overlay"></div>
+
+{% compress js %}
 <script src="{% static 'scripts/app.js' %}"></script>
 <script src="{% static 'scripts/dashboard.js' %}"></script>
+{% enndcompress %}
 </body>
 
 </html>

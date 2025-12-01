@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en" dir="rtl" class="dark">
 <head>
@@ -13,10 +14,11 @@
         <meta name="keywords" content="گیتار، تجهیزات موسیقی، بررسی گیتار، تکنولوژی">
     {% endblock %}
 
-
+    {% compress css%}
     <link rel="stylesheet" href="{% static 'styles/app.css' %}">
     <!-- link -->
     <link rel="stylesheet" href="{% static 'swiper/swiper.css' %}">
+    {% endcompress %}
 </head>
 <body>
 
@@ -190,6 +192,14 @@
                                 </svg>
                                 خروج از حساب
                             </a>
+                            {% if user.is_superuser %}
+			    <a href="{% url 'admin:index' %}" class="flex items-center gap-x-2 hover:bg-red-500 dark:hover:bg-red-500 hover:text-gray-100">
+                                <svg class="h-5 w-5">
+                                    <use href="#arrow-left-end"></use>
+                                </svg>
+                               Admin Panel
+                            </a>
+			    {% endif %}
                         </div>
                     </div>
                 {% else %}
@@ -426,6 +436,7 @@
 {% block shop %}{% endblock %}
 {% block products_detail %}{% endblock %}
 {% block aboutus %}{% endblock %}
+{% block notfound %}{% endblock %}
 <!-- Footer -->
 
 
@@ -519,7 +530,7 @@
 <div class="overlay"></div>
 <div class="search-overlay"></div>
 
-
+{% compress js %}
 <script src="{% static 'scripts/productDetails.js' %}"></script>
 <script src="{% static 'swiper/swiper.js' %}"></script>
 <script src="{% static 'scripts/app.js' %}"></script>
@@ -529,5 +540,5 @@
 <script src="{% static 'scripts/alert.js' %}"></script>
 <script src="{% static 'scripts/dashboard.js' %}"></script>
 </body>
-
+{% endcompress %}
 </html>

@@ -9,9 +9,9 @@ from django.http import HttpResponse
 def robots_txt(request):
     content = (
         "User-Agent: *\n"
-        "Disallow: /admin/\n"
+        "Disallow: /spr-82hxQv/\n"
         "Allow: /\n"
-        "Sitemap: http://127.0.0.1:8000/sitemap.xml\n"
+        "Sitemap: https://clpguitar.com/sitemap.xml\n"
     )
     return HttpResponse(content, content_type="text/plain")
 
@@ -20,7 +20,7 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('spr-82hxQv/', admin.site.urls),
     path('', include('home.urls', namespace='home')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('blogs/', include('blogs.urls', namespace='blogs')),
@@ -32,3 +32,4 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = 'home.views.custom_404'

@@ -3,6 +3,7 @@ from django.views import View
 from products.models import *
 from itertools import chain
 from blogs.models import *
+from django.http import HttpResponseNotFound
 #-----------------------------------------------------------------------
 class HomeView(View):
     def get(self, request):
@@ -55,3 +56,7 @@ class HomeView(View):
 class AboutUsView(View):
     def get(self, request):
         return render(request, 'home/aboutus.html')
+#-----------------------------------------------------------------------
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+#-----------------------------------------------------------------------

@@ -1,5 +1,6 @@
 {% load humanize %}
 {% load static %}
+{% load compress %}
 <!-- Cart -->
 <div class="cart" id="miniCart">
     <!-- HEADER -->
@@ -29,7 +30,7 @@
         </a>
     </div>
 </div>
-
+{% compress js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const itemsContainer = document.getElementById('miniCartItems');
@@ -162,3 +163,4 @@
         });
     });
 </script>
+{% endcompress %}

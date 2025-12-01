@@ -6,9 +6,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w_0-odpl+sd4=vc$xyxah#pnb=df+(rb@a+4#$c4p+x&#a-tal'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["clpguitar.com","www.clpguitar.com",'localhost','127.0.0.1']
+ALLOWED_HOSTS = ["clpguitar.com","www.clpguitar.com",'141.11.250.14']
+
+# Session config: 1-hour idle timeout, secure cookies
+SESSION_COOKIE_AGE = 3600  # 1 hour max (from last activity)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Don't expire on close (idle check handles it)
+SESSION_SAVE_EVERY_REQUEST = True  # Reset timer on every page visit (if authenticated)
+SESSION_COOKIE_SECURE = True  # HTTPS only (your Nginx has SSL)
+SESSION_COOKIE_HTTPONLY = True  # Prevent JS access (anti-XSS)
+SESSION_COOKIE_SAMESITE = 'Lax'  # Secure cross-site
+# Backend: DB (your default; fast for <10k users)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 
 INSTALLED_APPS = [
@@ -31,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django_bleach',
     'django.contrib.humanize',
+    'compressor',
     ###############################
     ###############################
 ]
@@ -41,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'clp.middleware.SessionTimeoutMiddleware',
+    'clp.middleware.AdminAccessMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -112,6 +125,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ################################################################
 ########################CUSTOM SETTINGS#########################
 STATIC_URL = '/static/'
+
+# Ignore duplicates in collectstatic
+STATICFILES_IGNORE_PATTERNS = [
+    'django_ckeditor_5/dist/translations/*.js',  # Targets the duplicates
+    'django_ckeditor_5/src/*.js',  # If needed
+]
+
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+]
+COMPRESS_ENABLED = False
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # adjust this if your static folder is elsewhere

@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block title %} فروشگاه {% endblock %}
 {% block products_detail %}
-
+{% load compress %}
     <main class="container">
         <!-- Breadcrumb -->
         <nav class="flex mt-8" aria-label="Breadcrumb">
@@ -187,10 +187,10 @@
                     child:border child:text-gray-400 child:dark:border-white/20 child:border-gray-200
                     child:rounded-lg child:h-12 child:p-2 child:flex child:items-center child:gap-x-1
                     lg:child:gap-x-2 child:text-sm lg:text-base">
-                    <span><svg class="w-4 h-4 lg:w-6 lg:h-6"><use href="#arrow-path-rounded-square"></use></svg><p>ضمانت بازگشت کالا</p></span>
-                    <span><svg class="w-4 h-4 lg:w-6 lg:h-6"><use href="#check-badge"></use></svg><p>تضمین اصالت کالا</p></span>
-                    <span><svg class="w-4 h-4 lg:w-6 lg:h-6"><use href="#calender-day"></use></svg><p>پشتیبانی کل هفته</p></span>
-                    <span><svg class="w-4 h-4 lg:w-6 lg:h-6"><use href="#truke"></use></svg><p>ارسال به سراسر ایران</p></span>
+                    <span><p>ضمانت بازگشت کالا</p></span>
+                    <span><p>تضمین اصالت کالا</p></span>
+                    <span><p>پشتیبانی کل هفته</p></span>
+                    <span><p>ارسال به سراسر ایران</p></span>
                 </div>
             </div>
 
@@ -248,11 +248,6 @@
         <section class="mx-4 mt-10 lg:mt-20">
             <div class="flex flex-col gap-y-4 xs:flex-row items-center justify-between w-full text-center xs:text-start">
                 <div class="flex items-center gap-x-2 sm:gap-x-4">
-                    <span class="size-12 hidden xs:flex rounded-lg bg-white shadow-lg dark:bg-gray-800 flex-center">
-                        <svg class="size-7 text-gray-700 dark:text-gray-100">
-                            <use href="#mobile"></use>
-                        </svg>
-                    </span>
                     <div class="space-y-1 md:space-y-1">
                         <h3 class="text-xl md:text-2xl font-MorabbaMedium text-gray-800 dark:text-gray-50">محصولات
                             <span class="text-blue-600 dark:text-blue-500">پرفروش</span>
@@ -435,7 +430,7 @@
             {#            </div>#}
         </section>
     </main>
-
+{% compress js %}
     <!-- JS -->
     <script>
         const slider = new Swiper('.ProductDetailsSlider', {
@@ -519,4 +514,5 @@
             updateTotal();
         });
     </script>
+{% endcompress %}
 {% endblock %}
