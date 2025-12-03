@@ -1,2 +1,7 @@
 clp/settings.py
 venv/
+.bash_history
+.cache/
+.idea/
+.local/
+__pycache__/
